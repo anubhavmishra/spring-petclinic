@@ -27,3 +27,5 @@ jobs:
           cache: maven
       - name: Build with Maven Wrapper
         run: ./mvnw -B package
+      - name: Build Docker image
+        run: ./mvnw spring-boot:build-image
