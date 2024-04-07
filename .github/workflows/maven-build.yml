@@ -12,7 +12,8 @@ on:
 
 jobs:
   build:
-
+    environment:
+      name: maven-build
     runs-on: ubuntu-latest
     strategy:
       matrix:
