@@ -38,5 +38,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build Docker image
         run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=anubhavmishra/spring-petclinic:3.2.0
-      - name: Push Docker image
-        run: docker push anubhavmishra/spring-petclinic:3.2.0
+      - name: Tag & Push Docker image
+        run: |
+          docker tag anubhavmishra/spring-petclinic:3.2.0 anubhavmishra/spring-petclinic:latest
+          docker push anubhavmishra/spring-petclinic:3.2.0
+          docker push anubhavmishra/spring-petclinic:latest
