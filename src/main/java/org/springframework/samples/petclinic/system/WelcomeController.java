@@ -29,7 +29,9 @@ class WelcomeController {
 
 	@GetMapping("/")
 	public String welcome(Model model) {
-		model.addAttribute("endpoint", cacheEndpoint);
+		if (cacheEndpoint != null) {
+			model.addAttribute("endpoint", cacheEndpoint);
+		}
 		return "welcome";
 	}
 
