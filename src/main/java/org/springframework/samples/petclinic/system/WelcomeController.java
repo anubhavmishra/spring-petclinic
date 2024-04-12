@@ -24,12 +24,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 class WelcomeController {
 
+	@Value("${cache.enabled}")
+	String cacheEnabled;
+
 	@Value("${cache.endpoint}")
 	String cacheEndpoint;
 
 	@GetMapping("/")
 	public String welcome(Model model) {
-		if (cacheEndpoint != null) {
+		if (cacheEnabled.equals("true") && cacheEndpoint != null) {
 			model.addAttribute("endpoint", cacheEndpoint);
 		}
 		return "welcome";
