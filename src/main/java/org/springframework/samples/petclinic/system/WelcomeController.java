@@ -48,7 +48,8 @@ class WelcomeController {
 		System.out.println("maintenanceMode: " + maintenanceMode);
 		if (maintenanceMode) {
 			return "maintenance";
-		} else {
+		}
+		else {
 			return "welcome";
 		}
 	}
