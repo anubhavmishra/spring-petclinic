@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.configcat.*;
 
 @Controller
 class WelcomeController {
@@ -30,12 +31,26 @@ class WelcomeController {
 	@Value("${cache.endpoint}")
 	String cacheEndpoint;
 
+	@Value("${configcat.key}")
+	String configCatSDKKey;
+
+	@Value("${configcat.maintmode.key}")
+	String maintenanceModeFeatureFlagName;
+
 	@GetMapping("/")
 	public String welcome(Model model) {
 		if (cacheEnabled.equals("true") && cacheEndpoint != null) {
 			model.addAttribute("endpoint", cacheEndpoint);
 		}
-		return "welcome";
+
+		ConfigCatClient client = ConfigCatClient.get(configCatSDKKey);
+		boolean maintenanceMode = client.getValue(Boolean.class, maintenanceModeFeatureFlagName, false);
+		System.out.println("maintenanceMode: " + maintenanceMode);
+		if (maintenanceMode) {
+			return "maintenance";
+		} else {
+			return "welcome";
+		}
 	}
 
 }

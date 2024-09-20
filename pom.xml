@@ -139,6 +139,12 @@
       <artifactId>jakarta.xml.bind-api</artifactId>
     </dependency>
 
+    <!--ConfigCat-->
+    <dependency>
+      <groupId>com.configcat</groupId>
+      <artifactId>configcat-java-client</artifactId>
+      <version>[9.0.0,)</version>
+    </dependency>
   </dependencies>
 
   <build>
