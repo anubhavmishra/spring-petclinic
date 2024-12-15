@@ -37,9 +37,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build Docker image
-        run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=anubhavmishra/spring-petclinic:3.2.0
+        run: ./mvnw spring-boot:build-image -Dspring-boot.build-image.imageName=$DOCKERHUB_USERNAME/spring-petclinic:3.2.0
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       - name: Tag & Push Docker image
         run: |
-          docker tag anubhavmishra/spring-petclinic:3.2.0 anubhavmishra/spring-petclinic:latest
-          docker push anubhavmishra/spring-petclinic:3.2.0
-          docker push anubhavmishra/spring-petclinic:latest
+          docker tag $DOCKERHUB_USERNAME/spring-petclinic:3.2.0 $DOCKERHUB_USERNAME/spring-petclinic:latest
+          docker push $DOCKERHUB_USERNAME/spring-petclinic:3.2.0
+          docker push $DOCKERHUB_USERNAME/spring-petclinic:latest
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
